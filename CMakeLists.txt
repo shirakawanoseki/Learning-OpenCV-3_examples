@@ -1,4 +1,5 @@
 cmake_minimum_required(VERSION 2.8)
+set(OpenGL_GL_PREFERENCE GLVND)
 
 project( examples )
 

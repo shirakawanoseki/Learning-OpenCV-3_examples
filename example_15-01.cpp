@@ -2,6 +2,7 @@
 // accumulating those values into three separate comma separated files
 //
 #include <opencv2/opencv.hpp>
+#include <opencv2/highgui/highgui_c.h>
 #include <iostream>
 #include <fstream>
 

@@ -15,10 +15,11 @@
 #include <opencv2/core/core.hpp>
 #include <opencv2/highgui/highgui.hpp>
 #include <opencv2/features2d.hpp>
-#include <opencv2/xfeatures2d.hpp>
-#include <opencv2/xfeatures2d/nonfree.hpp>
+//#include <opencv2/xfeatures2d.hpp>
+//#include <opencv2/xfeatures2d/nonfree.hpp>
 #include <opencv2/calib3d.hpp>
 #include <opencv2/imgproc.hpp>
+#include "opencv2/core/core_c.h"
 #include <opencv2/core/utility.hpp>
 #include <opencv2/core/ocl.hpp>
 
@@ -45,11 +46,11 @@ using cv::BRISK;
 using cv::AKAZE;
 using cv::KAZE;
 
-using cv::xfeatures2d::BriefDescriptorExtractor;
-using cv::xfeatures2d::SURF;
-using cv::xfeatures2d::SIFT;
-using cv::xfeatures2d::DAISY;
-using cv::xfeatures2d::FREAK;
+//using cv::features2d::BriefDescriptorExtractor;
+//using cv::features2d::SURF;
+//using cv::features2d::SIFT;
+//using cv::features2d::DAISY;
+//using cv::features2d::FREAK;
 
 const double kDistanceCoef = 4.0;
 const int kMaxMatchingSize = 50;
@@ -182,8 +183,8 @@ int main(int argc, char** argv) {
     string img_file1(argv[3]);
     string img_file2(argv[4]);
 
-    Mat img1 = cv::imread(img_file1, CV_LOAD_IMAGE_COLOR);
-    Mat img2 = cv::imread(img_file2, CV_LOAD_IMAGE_COLOR);
+    Mat img1 = cv::imread(img_file1, cv::IMREAD_COLOR);
+    Mat img2 = cv::imread(img_file2, cv::IMREAD_COLOR);
 
     if (img1.channels() != 1) {
         cvtColor(img1, img1, cv::COLOR_RGB2GRAY);

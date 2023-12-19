@@ -1,6 +1,7 @@
 //Exercises at end of Chapter 11
 // 1、2、5、6 and 7
 #include <opencv2/opencv.hpp>
+#include <opencv2/photo/legacy/constants_c.h>
 #include <iostream>
 
 using namespace cv;

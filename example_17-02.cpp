@@ -6,6 +6,7 @@
 #include <fstream>
 #include <opencv2/opencv.hpp>
 #include <opencv2/core/core.hpp>
+#include <opencv2/core/core_c.h>
 #include <opencv2/highgui/highgui.hpp>
 
 using std::cout;
@@ -76,7 +77,7 @@ int main(int argc, char** argv) {
             break;
         }
         if (colored_frame.type() == CV_8UC3) {
-            cvtColor(colored_frame, frame, CV_BGR2GRAY);
+            cvtColor(colored_frame, frame, cv::COLOR_BGR2GRAY);
         }
         if (prev_frame.rows) {
             calcOpticalFlowFarneback(prev_frame, frame, optflow, pyr_scale, levels, winsize,

@@ -2,6 +2,7 @@
 // transformed video
 
 #include <opencv2/opencv.hpp>
+#include "opencv2/imgproc/types_c.h"
 #include <iostream>
 
 
@@ -31,14 +32,14 @@ int main( int argc, char** argv ) {
   //
 
   cv::VideoCapture capture( argv[1] );
-  double fps = capture.get( CV_CAP_PROP_FPS );
+  double fps = capture.get( 5 );
   cv::Size size(
-    (int)capture.get( CV_CAP_PROP_FRAME_WIDTH ),
-    (int)capture.get( CV_CAP_PROP_FRAME_HEIGHT )
+    (int)capture.get( 3 ),
+    (int)capture.get( 4 )
   );
 
   cv::VideoWriter writer;
-  writer.open( argv[2], CV_FOURCC('M','J','P','G'), fps, size );
+  writer.open( argv[2], cv::VideoWriter::fourcc('M','J','P','G'), fps, size );
 
   cv::Mat logpolar_frame, bgr_frame;
 

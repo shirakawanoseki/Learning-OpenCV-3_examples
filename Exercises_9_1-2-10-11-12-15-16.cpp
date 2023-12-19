@@ -1,5 +1,6 @@
 //Exercises_9_1-2-10-11-12-15-16.cpp Exercises at end of Chapter 8
 #include <opencv2/opencv.hpp>
+#include <opencv2/imgproc/types_c.h>
 #include <iostream>
 
 using namespace cv;

@@ -1,6 +1,8 @@
 //Exercises_8_1.cpp Exercises at end of Chapter 8
 //1
 #include <opencv2/opencv.hpp>
+#include <opencv2/videoio/videoio_c.h>
+#include "opencv2/imgproc/imgproc_c.h"
 #include <iostream>
 
 using namespace cv;
