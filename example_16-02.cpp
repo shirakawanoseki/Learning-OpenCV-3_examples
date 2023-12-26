@@ -14,9 +14,13 @@
 #include <opencv2/objdetect.hpp>
 #include <opencv2/core/core.hpp>
 #include <opencv2/highgui/highgui.hpp>
+
 #include <opencv2/features2d.hpp>
-//#include <opencv2/xfeatures2d.hpp>
-//#include <opencv2/xfeatures2d/nonfree.hpp>
+#ifdef OPENCV_ENABLE_NONFREE
+#include <opencv2/xfeatures2d.hpp>
+#include <opencv2/xfeatures2d/nonfree.hpp>
+#endif
+
 #include <opencv2/calib3d.hpp>
 #include <opencv2/imgproc.hpp>
 #include "opencv2/core/core_c.h"
@@ -45,12 +49,14 @@ using cv::ORB;
 using cv::BRISK;
 using cv::AKAZE;
 using cv::KAZE;
+using cv::SIFT;
 
-//using cv::features2d::BriefDescriptorExtractor;
-//using cv::features2d::SURF;
-//using cv::features2d::SIFT;
-//using cv::features2d::DAISY;
-//using cv::features2d::FREAK;
+#ifdef OPENCV_ENABLE_NONFREE
+using cv::xfeatures2d::BriefDescriptorExtractor;
+using cv::xfeatures2d::SURF;
+using cv::xfeatures2d::DAISY;
+using cv::xfeatures2d::FREAK;
+#endif
 
 const double kDistanceCoef = 4.0;
 const int kMaxMatchingSize = 50;
@@ -66,10 +72,14 @@ inline void detect_and_compute(string type, Mat& img, vector<KeyPoint>& kpts, Ma
         Ptr<SimpleBlobDetector> detector = SimpleBlobDetector::create();
         detector->detect(img, kpts);
     }
+
+    #ifdef OPENCV_ENABLE_NONFREE
     if (type == "surf") {
         Ptr<Feature2D> surf = SURF::create(800.0);
         surf->detectAndCompute(img, Mat(), kpts, desc);
     }
+    #endif
+
     if (type == "sift") {
         Ptr<Feature2D> sift = SIFT::create();
         sift->detectAndCompute(img, Mat(), kpts, desc);
@@ -90,8 +100,10 @@ inline void detect_and_compute(string type, Mat& img, vector<KeyPoint>& kpts, Ma
         Ptr<AKAZE> akaze = AKAZE::create();
         akaze->detectAndCompute(img, Mat(), kpts, desc);
     }
+
+    #ifdef OPENCV_ENABLE_NONFREE
     if (type == "freak") {
-        Ptr<FREAK> freak = FREAK::create();
+        Ptr<FREAK> freak = cv::FREAK::create();
         freak->compute(img, kpts, desc);
     }
     if (type == "daisy") {
@@ -102,6 +114,7 @@ inline void detect_and_compute(string type, Mat& img, vector<KeyPoint>& kpts, Ma
         Ptr<BriefDescriptorExtractor> brief = BriefDescriptorExtractor::create(64);
         brief->compute(img, kpts, desc);
     }
+    #endif
 }
 
 inline void match(string type, Mat& desc1, Mat& desc2, vector<DMatch>& matches) {
